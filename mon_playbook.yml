@@ -5,5 +5,23 @@
   hosts: mes_machines
   remote_user: jojo
   tasks:
-  - name: Ping the system
+  - name: "Ping the system"
     ansible.builtin.ping:
+
+  - name: "Ajouter un fichier de test sur la machine cible"
+    copy:
+      content: "Ceci est un fichier créé par Ansible"
+      dest: "/tmp/copy_text"
+
+  - name: "Installer le serveur Apache"
+    apt:
+      name: apache2
+      state: present
+    become: yes
+
+  - name: "Démarrer le service Apache"
+    service:
+      name: apache2
+      state: started
+      enabled: true
+    become: yes
